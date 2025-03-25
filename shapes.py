@@ -108,7 +108,7 @@ def create_rectangular_prism():
         vertex[1] *= length
         vertex[2] *= height
 
-    create_obj("arm1.obj", vertices, faces)
+    create_obj("rectangular_prism.obj", vertices, faces)
 
 def create_cylinder():
     vertices, faces = create_prism(100)
@@ -122,7 +122,7 @@ def create_cylinder():
         vertex[1] *= length
         vertex[2] *= height
 
-    create_obj("arm2.obj", vertices, faces)
+    create_obj("cylinder.obj", vertices, faces)
 
 def create_prism(sides: int):
     base_points = [(math.cos(i * 2 * math.pi / sides), math.sin(i * 2 * math.pi / sides)) for i in range(sides)]
@@ -142,36 +142,6 @@ def create_prism(sides: int):
         faces.append([bl, br, 1]) # bottom base slice
     return vertices, faces
 
-def create_dodecahedron():
-    phi = 0.5 * (1 + math.sqrt(5))
-    phi_inv = 1.0 / phi
-    pentagon_vertices = [
-        np.ndarray([1.0, 1.0, 1.0]), # Orange - 0
-        np.ndarray([1.0, 1.0, -1.0]), # ++-
-        np.ndarray([1.0, -1.0, 1.0]), # +-+
-        np.ndarray([1.0, -1.0, -1.0]), # +--
-        np.ndarray([-1.0, 1.0, 1.0]), # Orange - 4
-        np.ndarray([-1.0, 1.0, -1.0]),
-        np.ndarray([-1.0, -1.0, 1.0]),
-        np.ndarray([-1.0, -1.0, -1.0]),
-        np.ndarray([0.0, phi, phi_inv]), # Green - 8
-        np.ndarray([0.0, phi, -phi_inv]),
-        np.ndarray([0.0, -phi, phi_inv]),
-        np.ndarray([0.0, -phi, -phi_inv]),
-        np.ndarray([phi_inv, 0.0, phi]), # Blue - 12
-        np.ndarray([phi_inv, 0.0, -phi]),
-        np.ndarray([-phi_inv, 0.0, phi]),
-        np.ndarray([-phi_inv, 0.0, -phi]),
-        np.ndarray([phi, phi_inv, 0.0]), # Pink - 16
-        np.ndarray([phi, -phi_inv, 0.0]),
-        np.ndarray([-phi, phi_inv, 0.0]),
-        np.ndarray([-phi, -phi_inv, 0.0])
-    ]
-    pentagons = [
-        [0, 16, 17, 2, 12],
-        [2, 17, 3, ]
-    ]
-
 def create_obj(name: str, vertices: list[np.ndarray], faces: list[list[int]]):
     with open(name, "w") as f:
         for vertex in vertices:
@@ -184,6 +154,6 @@ def create_obj(name: str, vertices: list[np.ndarray], faces: list[list[int]]):
         f.close()
 
 if __name__ == "__main__":
-    # create_truncated_tetrahedron()
-    # create_rectangular_prism()
+    create_truncated_tetrahedron()
+    create_rectangular_prism()
     create_cylinder()
